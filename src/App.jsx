@@ -5,6 +5,9 @@ const App = () => {
     <>
       <h1>App Component</h1>
       <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </>
   );
 };
