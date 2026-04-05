@@ -1,5 +1,6 @@
 import React from "react";
 import ProductCard from "./ProductCard";
+import productsData from "./productsData";
 import "./Products.css";
 
 // Ürünlerle ilgili ana parent component
@@ -12,10 +13,15 @@ const Products = () => {
     <div className="products">
       <h2>Products Component</h2>
       <div className="products-wrapper">
-        <ProductCard image={image} title={title} price={price} />
-        <ProductCard image={image} title={"Küçük Su"} price={10} />
-        <ProductCard image={image} title={title} price={price} />
-        <ProductCard image={image} title={title} price={price} />
+        {productsData.map((product) => (
+          <ProductCard
+            key={product.id}
+            myImage={product.image}
+            title={product.title}
+            price={product.price}
+            desc={product.description}
+          />
+        ))}
       </div>
     </div>
   );
