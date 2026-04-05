@@ -1,5 +1,5 @@
-import ProductCard from "./ProductCard";
-import Products from "./Products";
+import ProductCard from "./components/Products/ProductCard";
+import Products from "./components/Products/Products";
 
 const App = () => {
   return (
