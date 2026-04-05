@@ -1,12 +1,7 @@
 import React from "react";
 import "./ProductCard.css";
 
-const ProductCard = () => {
-  const image =
-    "https://konyaberraksu.com/wp-content/uploads/2019/03/5lt-buyuk.png";
-  const title = "Büyük Su";
-  const price = 20;
-
+const ProductCard = ({ image, title, price }) => {
   return (
     <div className="product-card">
       <img className="product-image" src={image} alt="" />
