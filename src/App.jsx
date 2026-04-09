@@ -11,6 +11,12 @@ const App = () => {
       <Button title="3. Component" variant="success" /> {/* 3. Component */}
       <Button title="Sil" variant="danger" size="sm" />
       <Button title="Ürün Ekle" variant="primary" size="lg" addClass="hidden" />
+      <Button variant="secondary" size="lg">
+        <b>
+          Deneme Buton
+          <span>asdas</span>
+        </b>
+      </Button>
       <Products />
     </>
   );
