@@ -10,6 +10,7 @@ const AddProductForm = ({ addNewProduct }) => {
     image: "",
     price: 0,
     description: "",
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -19,8 +20,30 @@ const AddProductForm = ({ addNewProduct }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log(Object.values(product));
+    console.log(Object.keys(product));
+    console.log(Object.entries(product));
+
+    const isFormValid = Object.values(product).every(
+      (value) => value.trim() !== "",
+    );
+
+    if (!isFormValid) {
+      alert("Inputlar Boş Geçilemez!");
+      return;
+    }
+
     const newProduct = { ...product, id: Math.random() };
     addNewProduct(newProduct);
+
+    setProduct({
+      title: "",
+      image: "",
+      price: 0,
+      description: "",
+      category: "",
+    });
   };
 
   return (
@@ -28,11 +51,10 @@ const AddProductForm = ({ addNewProduct }) => {
       {productInputs.map((input, index) => (
         <ProductInput
           key={index}
-          name={input.name}
-          placeholder={input.placeholder}
-          label={input.label}
           handleChange={handleChange}
+          {...input}
           type={input.type}
+          value={product[input.name]}
         />
       ))}
 

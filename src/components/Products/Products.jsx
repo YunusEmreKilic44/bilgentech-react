@@ -9,7 +9,7 @@ const Products = () => {
   const [products, setProducts] = useState(productsData);
 
   const addNewProduct = (newProducts) => {
-    setProducts((prev) => [...prev, newProducts]);
+    setProducts((prev) => [newProducts, ...prev]);
   };
 
   return (
