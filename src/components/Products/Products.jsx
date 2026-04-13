@@ -12,6 +12,14 @@ const Products = () => {
     setProducts((prev) => [newProducts, ...prev]);
   };
 
+  const deleteProduct = (productId) => {
+    const filteredProducts = products.filter(
+      (product) => product.id !== productId,
+    );
+
+    setProducts(filteredProducts);
+  };
+
   return (
     <div className="products">
       <h2>Products Component</h2>
@@ -24,6 +32,8 @@ const Products = () => {
             title={product.title}
             price={product.price}
             desc={product.description}
+            id={product.id}
+            deleteProduct={deleteProduct}
           />
         ))}
       </div>
