@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import "./AddProductForm.css";
+import ProductInput from "./ProductInput";
+import { productInputs } from "../../data/productInputs";
 
 const AddProductForm = ({ addNewProduct }) => {
   const [product, setProduct] = useState({
@@ -19,47 +21,21 @@ const AddProductForm = ({ addNewProduct }) => {
     e.preventDefault();
     const newProduct = { ...product, id: Math.random() };
     addNewProduct(newProduct);
-    console.log("Yeni ürün bilgileri", product);
   };
 
   return (
     <form className="add-product-form" onSubmit={handleSubmit}>
-      <label>
-        Title: {product.title}
-        <input
-          type="text"
-          placeholder="Bir ürün ismi giriniz!"
-          onChange={handleChange}
-          name="title"
+      {productInputs.map((input, index) => (
+        <ProductInput
+          key={index}
+          name={input.name}
+          placeholder={input.placeholder}
+          label={input.label}
+          handleChange={handleChange}
+          type={input.type}
         />
-      </label>
-      <label>
-        Image URL: {product.image}
-        <input
-          type="text"
-          placeholder="Bir ürün görseli giriniz!"
-          onChange={handleChange}
-          name="image"
-        />
-      </label>
-      <label>
-        Price: {product.price}
-        <input
-          type="number"
-          placeholder="Bir ürün fiyatı giriniz!"
-          onChange={handleChange}
-          name="price"
-        />
-      </label>
-      <label>
-        Description: {product.description}
-        <input
-          type="text"
-          placeholder="Bir ürün açıklaması giriniz!"
-          onChange={handleChange}
-          name="description"
-        />
-      </label>
+      ))}
+
       <Button variant="primary">Ürünü Ekle</Button>
     </form>
   );
