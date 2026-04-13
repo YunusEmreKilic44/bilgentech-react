@@ -2,15 +2,22 @@ import ProductCard from "./ProductCard";
 import productsData from "../../productsData";
 import "./Products.css";
 import AddProductForm from "./AddProductForm";
+import { useState } from "react";
 
 // Ürünlerle ilgili ana parent component
 const Products = () => {
+  const [products, setProducts] = useState(productsData);
+
+  const addNewProduct = (newProducts) => {
+    setProducts((prev) => [...prev, newProducts]);
+  };
+
   return (
     <div className="products">
       <h2>Products Component</h2>
-      <AddProductForm />
+      <AddProductForm addNewProduct={addNewProduct} />
       <div className="products-wrapper">
-        {productsData.map((product) => (
+        {products.map((product) => (
           <ProductCard
             key={product.id}
             myImage={product.image}
