@@ -15,8 +15,13 @@ const AddProductForm = () => {
     setProduct((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Yeni ürün bilgileri", product);
+  };
+
   return (
-    <form className="add-product-form">
+    <form className="add-product-form" onSubmit={handleSubmit}>
       <label>
         Title: {product.title}
         <input
