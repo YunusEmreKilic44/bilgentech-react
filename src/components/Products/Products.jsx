@@ -1,12 +1,14 @@
+import { useState } from "react";
+import AddProductForm from "./AddProductForm";
 import ProductCard from "./ProductCard";
+import Modal from "./../UI/Modal";
 import productsData from "../../productsData";
 import "./Products.css";
-import AddProductForm from "./AddProductForm";
-import { useState } from "react";
 
 // Ürünlerle ilgili ana parent component
 const Products = () => {
   const [products, setProducts] = useState(productsData);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const addNewProduct = (newProducts) => {
     setProducts((prev) => [newProducts, ...prev]);
@@ -23,7 +25,10 @@ const Products = () => {
   return (
     <div className="products">
       <h2>Products Component</h2>
-      <AddProductForm addNewProduct={addNewProduct} />
+      <AddProductForm
+        addNewProduct={addNewProduct}
+        setIsShowModal={setIsShowModal}
+      />
       <div className="products-wrapper">
         {products.map((product) => (
           <ProductCard
@@ -37,6 +42,13 @@ const Products = () => {
           />
         ))}
       </div>
+      {isShowModal && (
+        <Modal
+          title="Form Hatası"
+          description="Inputlar boş geçilemez!"
+          onCloseModal={() => setIsShowModal(false)}
+        />
+      )}
     </div>
   );
 };
