@@ -1,21 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Counter() {
   const [count, setCount] = useState(0);
 
-  function arttir() {
-    setCount(count + 1);
-  }
+  const [title, setTitle] = useState("Emre");
 
-  function azalt() {
-    setCount(count - 1);
-  }
+  useEffect(() => {
+    console.log("Component DOM'a yüklendiğinde!");
+  }, [title, count]);
 
   return (
     <div className="counter">
-      <button onClick={arttir}>+</button>
+      <strong>{title}</strong>
+      <button onClick={() => setTitle("Emin")}>Ismi Değiştir</button>
+      <br />
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        +
+      </button>
       <strong>{count}</strong>
-      <button onClick={azalt}>-</button>
+      <button
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      >
+        -
+      </button>
     </div>
   );
 }

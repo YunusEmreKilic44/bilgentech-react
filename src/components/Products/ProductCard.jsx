@@ -19,6 +19,7 @@ const ProductCard = ({
         <Button
           variant="danger"
           size="sm"
+          addClass="product-btn"
           onClick={() => deleteProduct(productId)}
         >
           Ürünü Sil

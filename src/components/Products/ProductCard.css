@@ -5,6 +5,8 @@
 
 .product-card img {
   width: 100%;
+  object-fit: contain;
+  height: 200px;
 }
 
 .product-info {
@@ -26,4 +28,8 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.product-card .product-btn {
+  margin-top: 10px;
 }
