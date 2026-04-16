@@ -8,8 +8,8 @@ const App = () => {
     <>
       <h1>App Component</h1>
 
-      {/* <Products /> */}
-      <Counter />
+      <Products />
+      {/* <Counter /> */}
     </>
   );
 };
