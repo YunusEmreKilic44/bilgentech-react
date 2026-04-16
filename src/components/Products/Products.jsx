@@ -1,25 +1,29 @@
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import AddProductForm from "./AddProductForm";
 import ProductCard from "./ProductCard";
 import Modal from "./../UI/Modal";
 import productsData from "../../data/productsData";
 import "./Products.css";
+import { initialState, reducerFunction } from "./productReducer";
 
 // Ürünlerle ilgili ana parent component
 const Products = () => {
-  const [products, setProducts] = useState(productsData);
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [state, dispatch] = useReducer(reducerFunction, initialState);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: "GET_PRODUCTS", products: data }))
+      .catch((err) => console.log(err))
+      .finally(() => dispatch({ type: "CLOSE_LOADING" }));
+  }, []);
 
   const addNewProduct = (newProducts) => {
-    setProducts((prev) => [newProducts, ...prev]);
+    dispatch({ type: "ADD_NEW_PRODUCTS", newProducts });
   };
 
   const deleteProduct = (productId) => {
-    const filteredProducts = products.filter(
-      (product) => product.id !== productId,
-    );
-
-    setProducts(filteredProducts);
+    dispatch({ type: "DELETE_PRODUCT", productId: productId });
   };
 
   return (
@@ -27,10 +31,11 @@ const Products = () => {
       <h2>Products Component</h2>
       <AddProductForm
         addNewProduct={addNewProduct}
-        setIsShowModal={setIsShowModal}
+        setIsShowModal={() => dispatch({ type: "OPEN_MODAL" })}
       />
       <div className="products-wrapper">
-        {products.map((product) => (
+        {state.isLoading && <b>Ürünler Yükleniyor</b>}
+        {state.products.map((product) => (
           <ProductCard
             key={product.id}
             myImage={product.image}
@@ -42,11 +47,11 @@ const Products = () => {
           />
         ))}
       </div>
-      {isShowModal && (
+      {state.isShowModal && (
         <Modal
           title="Form Hatası"
           description="Inputlar boş geçilemez!"
-          onCloseModal={() => setIsShowModal(false)}
+          onCloseModal={() => dispatch({ type: "CLOSE_MODAL" })}
         />
       )}
     </div>
