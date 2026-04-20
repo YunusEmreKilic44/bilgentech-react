@@ -1,8 +1,7 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import AddProductForm from "./AddProductForm";
 import ProductCard from "./ProductCard";
 import Modal from "./../UI/Modal";
-import productsData from "../../data/productsData";
 import "./Products.css";
 import { initialState, reducerFunction } from "./productReducer";
 
