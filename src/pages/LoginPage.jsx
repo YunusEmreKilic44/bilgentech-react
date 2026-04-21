@@ -1,12 +1,26 @@
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email("Geçerli e-posta adresi giriniz!")
+    .required("E-posta adresi zorunludur."),
+  password: yup
+    .string()
+    .min(6, "Şifre en az 6 karakter olmalıdır.")
+    .max(12, "Şifre en fazla 12 karakter olmalıdır.")
+    .required("Şifre zorunludur."),
+});
 
 const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
   console.log(errors);
 
@@ -43,6 +57,9 @@ const LoginPage = () => {
               {...register("email", { required: true })}
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
           </div>
 
           <div>
@@ -60,6 +77,9 @@ const LoginPage = () => {
               {...register("password")}
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
             />
+            {errors.password && (
+              <p className="text-red-500 tex-sm">{errors.password.message}</p>
+            )}
           </div>
 
           <label className="flex items-center gap-2 text-sm text-slate-600">
