@@ -27,7 +27,6 @@ const Products = () => {
 
   return (
     <div className="products">
-      <h2>Products Component</h2>
       <AddProductForm
         addNewProduct={addNewProduct}
         setIsShowModal={() => dispatch({ type: "OPEN_MODAL" })}
