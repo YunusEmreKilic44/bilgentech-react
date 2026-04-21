@@ -1,4 +1,19 @@
+import { useForm } from "react-hook-form";
+
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  console.log(errors);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900">
       <div className="mx-auto w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
@@ -12,9 +27,12 @@ const LoginPage = () => {
           </p>
         </div>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+            <label
+              htmlFor="email"
+              className="mb-2 block text-sm font-medium text-slate-700"
+            >
               E-posta
             </label>
             <input
@@ -22,7 +40,7 @@ const LoginPage = () => {
               name="email"
               type="email"
               placeholder="ornek@firma.com"
-              required
+              {...register("email", { required: true })}
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
             />
           </div>
@@ -39,7 +57,7 @@ const LoginPage = () => {
               name="password"
               type="password"
               placeholder="••••••••"
-              required
+              {...register("password")}
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
             />
           </div>
