@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Header from "../components/Layout/Header";
 
 const schema = yup.object({
   fullName: yup
@@ -38,6 +39,7 @@ const RegisterPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900">
+      <Header />
       <div className="mx-auto w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-lg">
         <div className="mb-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -70,7 +72,10 @@ const RegisterPage = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+            <label
+              htmlFor="email"
+              className="mb-2 block text-sm font-medium text-slate-700"
+            >
               E-posta
             </label>
             <input
