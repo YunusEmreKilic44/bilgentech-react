@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import RegisterPage from "./pages/RegisterPage";
 import Header from "./components/Layout/Header";
+import NotFound from "./pages/NotFound";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const App = () => {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
 
