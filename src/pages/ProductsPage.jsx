@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Products from "../components/Products/Products";
 import Header from "../components/Layout/Header";
 
 const ProductsPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+
   return (
     <div className="products-page">
-      <Header />
-      <Products />
+      <Header cartItems={cartItems} />
+      <div className="mx-auto">
+        <Products setCartItems={setCartItems} />
+      </div>
     </div>
   );
 };

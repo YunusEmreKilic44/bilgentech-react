@@ -6,7 +6,7 @@ import "./Products.css";
 import { initialState, reducerFunction } from "./productReducer";
 
 // Ürünlerle ilgili ana parent component
-const Products = () => {
+const Products = ({ setCartItems }) => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const Products = () => {
             desc={product.description}
             id={product.id}
             deleteProduct={deleteProduct}
+            setCartItems={setCartItems}
           />
         ))}
       </div>

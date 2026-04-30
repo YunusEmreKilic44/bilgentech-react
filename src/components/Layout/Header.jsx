@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { NavLink } from "react-router";
 
-const Header = () => {
+const Header = ({ cartItems }) => {
   const navLinkClass =
     "rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
   const loginLinkClass =
     "rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100";
   const registerLinkClass =
     "rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white transition hover:bg-slate-800";
+  const cartButtonClass =
+    "relative rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100";
+
+  console.log(cartItems);
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
@@ -38,6 +43,12 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2">
+          <NavLink to="/cart" className={cartButtonClass}>
+            <span className="absolute -right-2 -top-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-fuchsia-600 px-1 text-xs font-semibold text-white">
+              {cartItems?.length}
+            </span>
+            Sepet
+          </NavLink>
           <NavLink to="/login" className={loginLinkClass}>
             Giris
           </NavLink>

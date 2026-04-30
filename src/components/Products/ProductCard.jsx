@@ -8,6 +8,7 @@ const ProductCard = ({
   desc,
   id: productId,
   deleteProduct,
+  setCartItems,
 }) => {
   return (
     <div className="product-card">
@@ -16,6 +17,19 @@ const ProductCard = ({
         <strong className="product-title">{title}</strong>
         <span className="product-price">{price}₺</span>
         <p className="product-description">{desc}</p>
+        <Button
+          variant="primary"
+          size="sm"
+          addClass="product-btn"
+          onClick={() =>
+            setCartItems((prevState) => [
+              ...prevState,
+              { id: productId, title, price, myImage, desc },
+            ])
+          }
+        >
+          Sepete Ekle
+        </Button>
         <Button
           variant="danger"
           size="sm"
