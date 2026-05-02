@@ -1,10 +1,34 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
 const ProductDetailPage = () => {
+  const [product, setProduct] = useState(null);
+  const { productId } = useParams();
+
+  useEffect(() => {
+    const fetchProductDetail = async () => {
+      fetch(`https://fakestoreapi.com/products/${productId}`)
+        .then((res) => res.json())
+        .then((data) => setProduct(data))
+        .catch((err) => console.log(err))
+        .finally(() => console.log("Product detail fetched"));
+    };
+    fetchProductDetail();
+  }, [productId]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="grid gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
         <div className="flex items-center justify-center rounded-2xl bg-slate-50 p-8">
           <img
-            src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png"
+            src={
+              product?.image
+                ? product.image
+                : "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png"
+            }
             alt="Product"
             className="max-h-[360px] w-full max-w-[360px] object-contain"
           />
@@ -12,22 +36,23 @@ const ProductDetailPage = () => {
 
         <div className="flex flex-col">
           <span className="inline-flex w-fit rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-semibold text-fuchsia-700">
-            Category
+            {product?.category ? product.category : "Category"}
           </span>
           <h1 className="mt-4 text-3xl font-bold text-slate-900">
-            Sample Product Name
+            {product?.title ? product.title : "Sample Product Name"}
           </h1>
           <p className="mt-2 text-sm text-slate-500">SKU: PRD-0001</p>
 
           <p className="mt-5 text-slate-600">
-            Bu alan urun aciklamasi icin ayrilmistir. Urunun teknik ozellikleri,
-            kullanim bilgileri ve dikkat ceken detaylari burada gosterilebilir.
+            {product?.description
+              ? product.description
+              : "Bu alan urun aciklamasi icin ayrilmistir. Urunun teknik ozellikleri, kullanim bilgileri ve dikkat ceken detaylari burada gosterilebilir."}
           </p>
 
           <div className="mt-6 rounded-xl bg-slate-50 p-4">
             <p className="text-sm text-slate-500">Fiyat</p>
             <p className="mt-1 text-3xl font-bold text-slate-900">
-              1,299.99 TL
+              {product?.price ? product.price : "1,299.99 TL"}
             </p>
           </div>
 
