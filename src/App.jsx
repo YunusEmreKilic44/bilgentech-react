@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Header from "./components/Layout/Header";
 import NotFound from "./pages/NotFound";
 import MainLayout from "./components/Layout/MainLayout";
+import CartPages from "./pages/CartPages";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const App = () => {
         {
           path: "/register",
           element: <RegisterPage />,
+        },
+        {
+          path: "/cart",
+          element: <CartPages />,
         },
         {
           path: "*",
