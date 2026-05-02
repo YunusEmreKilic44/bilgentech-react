@@ -57,6 +57,14 @@ const Header = () => {
           >
             Contact
           </NavLink>
+          <NavLink
+            to="/admin"
+            className={({ isActive }) =>
+              isActive ? `${navLinkClass} text-fuchsia-700!` : navLinkClass
+            }
+          >
+            Admin
+          </NavLink>
         </nav>
 
         <div className="flex items-center gap-2">

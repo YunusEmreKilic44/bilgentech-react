@@ -4,7 +4,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import RegisterPage from "./pages/RegisterPage";
-import Header from "./components/Layout/Header";
 import NotFound from "./pages/NotFound";
 import MainLayout from "./components/Layout/MainLayout";
 import CartPages from "./pages/CartPages";
@@ -12,8 +11,13 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import { ToastContainer } from "react-toastify";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 const App = () => {
   const router = createBrowserRouter([
+    {
+      path: "/admin",
+      element: <AdminDashboardPage />,
+    },
     {
       path: "/",
       element: <MainLayout />,
@@ -59,12 +63,10 @@ const App = () => {
   ]);
 
   return (
-    <div className="p-4">
-      <main className="main-content py-4">
-        <RouterProvider router={router} />
-        <ToastContainer />
-      </main>
-    </div>
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
   );
 };
 

@@ -3,11 +3,11 @@ import Header from "./Header";
 
 const MainLayout = () => {
   return (
-    <div className="main-layout">
+    <div className="main-layout min-h-screen">
       <Header />
-      <div className="content-wrapper">
+      <main className="content-wrapper px-4 py-4">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 };
