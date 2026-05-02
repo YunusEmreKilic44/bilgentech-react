@@ -1,7 +1,10 @@
-import { useState } from "react";
 import { NavLink } from "react-router";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
-const Header = ({ cartItems }) => {
+const Header = () => {
+  const { cartItems } = useContext(CartContext);
+
   const navLinkClass =
     "rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
   const loginLinkClass =

@@ -1,13 +1,15 @@
-import { useEffect, useReducer } from "react";
+import { useContext, useEffect, useReducer } from "react";
 import AddProductForm from "./AddProductForm";
 import ProductCard from "./ProductCard";
 import Modal from "./../UI/Modal";
 import "./Products.css";
 import { initialState, reducerFunction } from "./productReducer";
+import { CartContext } from "../../context/CartContext";
 
 // Ürünlerle ilgili ana parent component
-const Products = ({ setCartItems }) => {
+const Products = () => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
+  const { setCartItems } = useContext(CartContext);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
