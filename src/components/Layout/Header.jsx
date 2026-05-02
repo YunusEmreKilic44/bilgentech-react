@@ -41,6 +41,22 @@ const Header = () => {
           >
             Urunler
           </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? `${navLinkClass} text-fuchsia-700!` : navLinkClass
+            }
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? `${navLinkClass} text-fuchsia-700!` : navLinkClass
+            }
+          >
+            Contact
+          </NavLink>
         </nav>
 
         <div className="flex items-center gap-2">

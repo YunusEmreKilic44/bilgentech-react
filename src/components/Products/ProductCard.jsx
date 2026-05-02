@@ -1,6 +1,6 @@
 import Button from "../UI/Button";
 import "./ProductCard.css";
-
+import { toast } from "react-toastify";
 const ProductCard = ({
   myImage,
   title,
@@ -10,6 +10,14 @@ const ProductCard = ({
   deleteProduct,
   setCartItems,
 }) => {
+  const addToCart = () => {
+    setCartItems((prevState) => [
+      ...prevState,
+      { id: productId, title, price, myImage, desc },
+    ]);
+    toast.success(`${title} sepete eklendi`);
+  };
+
   return (
     <div className="product-card">
       <img className="product-image" src={myImage} alt="" />
@@ -21,12 +29,7 @@ const ProductCard = ({
           variant="primary"
           size="sm"
           addClass="product-btn"
-          onClick={() =>
-            setCartItems((prevState) => [
-              ...prevState,
-              { id: productId, title, price, myImage, desc },
-            ])
-          }
+          onClick={() => addToCart()}
         >
           Sepete Ekle
         </Button>

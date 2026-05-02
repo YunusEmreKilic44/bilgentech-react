@@ -8,6 +8,9 @@ import Header from "./components/Layout/Header";
 import NotFound from "./pages/NotFound";
 import MainLayout from "./components/Layout/MainLayout";
 import CartPages from "./pages/CartPages";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import { ToastContainer } from "react-toastify";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -35,6 +38,14 @@ const App = () => {
           element: <CartPages />,
         },
         {
+          path: "/about",
+          element: <AboutPage />,
+        },
+        {
+          path: "/contact",
+          element: <ContactPage />,
+        },
+        {
           path: "*",
           element: <NotFound />,
         },
@@ -46,6 +57,7 @@ const App = () => {
     <div className="p-4">
       <main className="main-content py-4">
         <RouterProvider router={router} />
+        <ToastContainer />
       </main>
     </div>
   );
