@@ -11,6 +11,7 @@ import CartPages from "./pages/CartPages";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import { ToastContainer } from "react-toastify";
+import ProductDetailPage from "./pages/ProductDetailPage";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const App = () => {
         {
           path: "/contact",
           element: <ContactPage />,
+        },
+        {
+          path: "/product-detail",
+          element: <ProductDetailPage />,
         },
         {
           path: "*",
