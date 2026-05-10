@@ -1,34 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Button from "./UI/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { arttir, azalt } from "../redux/counterSlice";
 
 function Counter() {
-  const [count, setCount] = useState(0);
-
-  const [title, setTitle] = useState("Emre");
-
-  useEffect(() => {
-    console.log("Component DOM'a yüklendiğinde!");
-  }, [title, count]);
+  const [, setCount] = useState(0);
+  const { count } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
   return (
     <div className="counter">
-      <strong>{title}</strong>
-      <button onClick={() => setTitle("Emin")}>Ismi Değiştir</button>
-      <br />
-      <button
+      <Button
+        variant="primary"
         onClick={() => {
-          setCount(count + 1);
+          dispatch(arttir());
         }}
       >
         +
-      </button>
-      <strong>{count}</strong>
-      <button
+      </Button>
+      <strong className="mx-4">{count}</strong>
+      <Button
+        variant="danger"
         onClick={() => {
-          setCount(count - 1);
+          dispatch(azalt());
         }}
       >
         -
-      </button>
+      </Button>
     </div>
   );
 }
