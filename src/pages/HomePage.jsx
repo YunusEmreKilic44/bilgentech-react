@@ -79,7 +79,6 @@ const HomePage = () => {
   return (
     <div className="-mx-4 -my-4 bg-slate-100">
       <section className="bg-slate-950 text-white">
-        <Counter />
         <div className="mx-auto grid min-h-[520px] w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="flex flex-col justify-center">
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-sm font-semibold text-fuchsia-100">

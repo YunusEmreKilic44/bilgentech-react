@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import "./CartPages.css";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, resetCart } from "../redux/cartSlice";
+import Button from "../components/UI/Button";
 
 const CartPages = () => {
-  const { cartItems, deleteProduct } = useContext(CartContext);
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + Number(item.price || 0),
     0,
@@ -39,7 +42,7 @@ const CartPages = () => {
                   <button
                     type="button"
                     className="remove-btn"
-                    onClick={() => deleteProduct(item.id)}
+                    onClick={() => dispatch(removeFromCart(item.id))}
                   >
                     Sil
                   </button>
@@ -62,6 +65,15 @@ const CartPages = () => {
             <button className="checkout-btn">Alisverisi Tamamla</button>
           </aside>
         </div>
+      )}
+      {cartItems.length > 0 && (
+        <Button
+          variant="success"
+          addClass="mt-2"
+          onClick={() => dispatch(resetCart())}
+        >
+          Sepeti Temizle
+        </Button>
       )}
     </div>
   );

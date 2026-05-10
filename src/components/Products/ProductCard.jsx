@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router";
 import Button from "../UI/Button";
 import "./ProductCard.css";
-import { toast } from "react-toastify";
+import { addToCart } from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 const ProductCard = ({
   myImage,
   title,
@@ -12,14 +13,7 @@ const ProductCard = ({
   setCartItems,
 }) => {
   const navigate = useNavigate();
-
-  const addToCart = () => {
-    setCartItems((prevState) => [
-      ...prevState,
-      { id: productId, title, price, myImage, desc },
-    ]);
-    toast.success(`${title} sepete eklendi`);
-  };
+  const dispatch = useDispatch();
 
   return (
     <div className="product-card">
@@ -46,7 +40,9 @@ const ProductCard = ({
           variant="primary"
           size="sm"
           addClass="product-btn"
-          onClick={() => addToCart()}
+          onClick={() =>
+            dispatch(addToCart({ id: productId, title, price, myImage, desc }))
+          }
         >
           Sepete Ekle
         </Button>

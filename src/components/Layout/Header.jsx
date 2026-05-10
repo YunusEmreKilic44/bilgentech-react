@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
-import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const navLinkClass =
     "rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
