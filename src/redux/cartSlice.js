@@ -8,7 +8,21 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, { payload }) => {
-      state.cartItems = [payload, ...state.cartItems];
+      const findCartItem = state.cartItems.find(
+        (cartItem) => cartItem.id === payload.id,
+      );
+
+      if (findCartItem) {
+        state.cartItems = state.cartItems.map((cartItem) => {
+          if (cartItem.id === payload.id) {
+            return { ...cartItem, quantity: cartItem.quantity + 1 };
+          }
+          return cartItem;
+        });
+      } else {
+        state.cartItems = [{ ...payload, quantity: 1 }, ...state.cartItems];
+      }
+
       toast.success(`${payload.title} sepete eklendi`);
     },
     removeFromCart: (state, { payload }) => {

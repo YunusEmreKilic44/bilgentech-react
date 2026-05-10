@@ -47,7 +47,9 @@ const CartPages = () => {
                     Sil
                   </button>
                 </div>
-                <strong className="cart-item-price">{item.price}₺</strong>
+                <strong className="cart-item-price">
+                  {item.price}₺ x {item.quantity}
+                </strong>
               </div>
             ))}
           </div>
