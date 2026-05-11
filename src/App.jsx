@@ -12,11 +12,16 @@ import ContactPage from "./pages/ContactPage";
 import { ToastContainer } from "react-toastify";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/admin",
-      element: <AdminDashboardPage />,
+      element: (
+        <ProtectedRoute roles={["admin", "moderator"]}>
+          <AdminDashboardPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/",
