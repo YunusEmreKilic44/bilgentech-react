@@ -1,10 +1,12 @@
 import { NavLink } from "react-router";
 import { CartContext } from "../../context/CartContext";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const navLinkClass =
     "rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
@@ -58,14 +60,16 @@ const Header = () => {
           >
             Contact
           </NavLink>
-          <NavLink
-            to="/admin"
-            className={({ isActive }) =>
-              isActive ? `${navLinkClass} text-fuchsia-700!` : navLinkClass
-            }
-          >
-            Admin
-          </NavLink>
+          {authState.isAuthenticated && (
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                isActive ? `${navLinkClass} text-fuchsia-700!` : navLinkClass
+              }
+            >
+              Admin
+            </NavLink>
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -76,7 +80,15 @@ const Header = () => {
             Sepet
           </NavLink>
           {authState.isAuthenticated ? (
-            "Emin Başbayan"
+            <>
+              <strong>Emin Başbayan</strong>
+              <span
+                className="text-xl text-red-600 hover:cursor-pointer"
+                onClick={() => dispatch(logout())}
+              >
+                Çıkış
+              </span>
+            </>
           ) : (
             <>
               <NavLink to="/login" className={loginLinkClass}>
