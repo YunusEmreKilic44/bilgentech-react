@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
+  const authState = useSelector((state) => state.auth);
 
   const navLinkClass =
     "rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900";
@@ -74,12 +75,18 @@ const Header = () => {
             </span>
             Sepet
           </NavLink>
-          <NavLink to="/login" className={loginLinkClass}>
-            Giris
-          </NavLink>
-          <NavLink to="/register" className={registerLinkClass}>
-            Kayit Ol
-          </NavLink>
+          {authState.isAuthenticated ? (
+            "Emin Başbayan"
+          ) : (
+            <>
+              <NavLink to="/login" className={loginLinkClass}>
+                Giris
+              </NavLink>
+              <NavLink to="/register" className={registerLinkClass}>
+                Kayit Ol
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </header>

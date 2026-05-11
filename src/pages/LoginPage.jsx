@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { loginUser } from "../redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object({
-  email: yup
+  username: yup
     .string()
-    .email("Geçerli e-posta adresi giriniz!")
-    .required("E-posta adresi zorunludur."),
+    .min(3, "Kullanıcı adı en az 3 karakter olmalıdır.")
+    .max(20, "Kullanıcı adı en fazla 20 karakter olmalıdır.")
+    .required("Kullanıcı adı zorunludur."),
   password: yup
     .string()
     .min(6, "Şifre en az 6 karakter olmalıdır.")
@@ -15,6 +18,8 @@ const schema = yup.object({
 });
 
 const LoginPage = () => {
+  const authState = useSelector((state) => state.auth);
+  console.log(authState);
   const {
     register,
     handleSubmit,
@@ -24,8 +29,10 @@ const LoginPage = () => {
 
   console.log(errors);
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(loginUser(data));
   };
 
   return (
@@ -44,21 +51,21 @@ const LoginPage = () => {
         <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="mb-2 block text-sm font-medium text-slate-700"
             >
-              E-posta
+              Kullanıcı Adı
             </label>
             <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="ornek@firma.com"
-              {...register("email", { required: true })}
+              id="username"
+              name="username"
+              type="text"
+              placeholder="kullaniciadi"
+              {...register("username", { required: true })}
               className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-900 focus:ring-1 focus:ring-slate-900"
             />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            {errors.username && (
+              <p className="text-red-500 text-sm">{errors.username.message}</p>
             )}
           </div>
 
@@ -95,7 +102,7 @@ const LoginPage = () => {
             type="submit"
             className="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
           >
-            Giris Yap
+            {authState.loading ? "Giris yapiliyor..." : "Giris yap"}
           </button>
         </form>
       </div>
