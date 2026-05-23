@@ -1,20 +1,20 @@
-import { useContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import AddProductForm from "./AddProductForm";
 import ProductCard from "./ProductCard";
 import Modal from "./../UI/Modal";
 import "./Products.css";
 import { initialState, reducerFunction } from "./productReducer";
-import { CartContext } from "../../context/CartContext";
+import { getProducts } from "../../services/productsService";
 
 // Ürünlerle ilgili ana parent component
 const Products = () => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
-  const { setCartItems } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: "GET_PRODUCTS", products: data }))
+    getProducts()
+      .then((response) =>
+        dispatch({ type: "GET_PRODUCTS", products: response.data }),
+      )
       .catch((err) => console.log(err))
       .finally(() => dispatch({ type: "CLOSE_LOADING" }));
   }, []);
@@ -44,7 +44,6 @@ const Products = () => {
             desc={product.description}
             id={product.id}
             deleteProduct={deleteProduct}
-            setCartItems={setCartItems}
           />
         ))}
       </div>

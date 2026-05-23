@@ -10,7 +10,6 @@ const ProductCard = ({
   desc,
   id: productId,
   deleteProduct,
-  setCartItems,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

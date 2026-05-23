@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { login } from "../services/authService";
 
 const tokenFromStorage = localStorage.getItem("token");
+const loginErrorMessage = "Giris islemi sirasinda hata olustu";
 
 const initialState = {
   token: tokenFromStorage || null,
@@ -14,25 +16,17 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
-        }),
+      const response = await login({
+        username: formData.username,
+        password: formData.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        return rejectWithValue("Giriş işlemi sırasında hata oluştu");
-      }
-
-      return data;
+      return response.data;
     } catch (error) {
-      toast.error("Giriş işlemi sırasında hata oluştu");
-      return rejectWithValue("Giriş işlemi sırasında hata oluştu");
+      toast.error(loginErrorMessage);
+      return rejectWithValue(
+        error.response?.data?.message || loginErrorMessage,
+      );
     }
   },
 );

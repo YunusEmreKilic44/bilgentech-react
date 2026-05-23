@@ -75,21 +75,9 @@ const benefits = [
   },
 ];
 
-const handleLogin = () => {
-  const credentials = { username: "mor_2314", password: "83r5^_" };
-  fetch("https://fakestoreapi.com/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(credentials),
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
-
 const HomePage = () => {
   return (
     <div className="-mx-4 -my-4 bg-slate-100">
-      <button onClick={handleLogin}>Login</button>
       <section className="bg-slate-950 text-white">
         <div className="mx-auto grid min-h-[520px] w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="flex flex-col justify-center">
