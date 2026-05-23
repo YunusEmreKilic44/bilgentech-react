@@ -4,20 +4,29 @@ import ProductCard from "./ProductCard";
 import Modal from "./../UI/Modal";
 import "./Products.css";
 import { initialState, reducerFunction } from "./productReducer";
-import { getProducts } from "../../services/productsService";
+import { useGetProductsQuery } from "../../redux/api/fakeStoreApi";
 
 // Ürünlerle ilgili ana parent component
 const Products = () => {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
+  const {
+    data: products = [],
+    error,
+    isError,
+    isLoading,
+    isSuccess,
+  } = useGetProductsQuery();
 
   useEffect(() => {
-    getProducts()
-      .then((response) =>
-        dispatch({ type: "GET_PRODUCTS", products: response.data }),
-      )
-      .catch((err) => console.log(err))
-      .finally(() => dispatch({ type: "CLOSE_LOADING" }));
-  }, []);
+    if (isSuccess) {
+      dispatch({ type: "GET_PRODUCTS", products });
+      dispatch({ type: "CLOSE_LOADING" });
+    }
+
+    if (isError) {
+      dispatch({ type: "CLOSE_LOADING" });
+    }
+  }, [dispatch, isError, isSuccess, products]);
 
   const addNewProduct = (newProducts) => {
     dispatch({ type: "ADD_NEW_PRODUCTS", newProducts });
@@ -34,7 +43,8 @@ const Products = () => {
         setIsShowModal={() => dispatch({ type: "OPEN_MODAL" })}
       />
       <div className="products-wrapper">
-        {state.isLoading && <b>Ürünler Yükleniyor</b>}
+        {(state.isLoading || isLoading) && <b>Ürünler Yükleniyor</b>}
+        {error && <b>Urunler yuklenirken hata olustu</b>}
         {state.products.map((product) => (
           <ProductCard
             key={product.id}

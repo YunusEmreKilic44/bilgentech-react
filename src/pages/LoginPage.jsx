@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { loginUser } from "../redux/authSlice";
+import { toast } from "react-toastify";
+import { setAuthError, setCredentials } from "../redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useLoginMutation } from "../redux/api/fakeStoreApi";
 
 const schema = yup.object({
   username: yup
@@ -20,6 +22,7 @@ const schema = yup.object({
 const LoginPage = () => {
   const authState = useSelector((state) => state.auth);
   console.log(authState);
+  const [login, { isLoading }] = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -31,8 +34,17 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
-    dispatch(loginUser(data));
+  const onSubmit = async (data) => {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(setCredentials(response));
+    } catch (error) {
+      const errorMessage =
+        error?.data?.message || "Giris islemi sirasinda hata olustu";
+
+      dispatch(setAuthError(errorMessage));
+      toast.error(errorMessage);
+    }
   };
 
   return (
@@ -102,7 +114,7 @@ const LoginPage = () => {
             type="submit"
             className="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800"
           >
-            {authState.loading ? "Giris yapiliyor..." : "Giris yap"}
+            {isLoading ? "Giris yapiliyor..." : "Giris yap"}
           </button>
         </form>
       </div>

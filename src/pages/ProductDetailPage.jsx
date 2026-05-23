@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getProductById } from "../services/productsService";
+import { useGetProductByIdQuery } from "../redux/api/fakeStoreApi";
 
 const ProductDetailSkeleton = () => {
   return (
@@ -44,22 +43,23 @@ const ProductDetailSkeleton = () => {
 };
 
 const ProductDetailPage = () => {
-  const [product, setProduct] = useState(null);
   const { productId } = useParams();
+  const { data: product, error, isLoading } = useGetProductByIdQuery(productId);
 
-  useEffect(() => {
-    const fetchProductDetail = async () => {
-      getProductById(productId)
-        .then((response) => setProduct(response.data))
-        .catch((err) => console.log(err))
-        .finally(() => console.log("Product detail fetched"));
-    };
-    fetchProductDetail();
-  }, [productId]);
+  if (error) {
+    return (
+      <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-red-100 bg-red-50 p-6 text-red-700">
+          Urun detayi yuklenirken hata olustu
+        </div>
+      </section>
+    );
+  }
 
-  if (!product) {
+  if (isLoading || !product) {
     return <ProductDetailSkeleton />;
   }
+
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="grid gap-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:grid-cols-2">
