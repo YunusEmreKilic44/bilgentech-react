@@ -1,18 +1,23 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { ToastContainer } from "react-toastify";
+
+import MainLayout from "./components/Layout/MainLayout";
 import HomePage from "./pages/HomePage";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFound from "./pages/NotFound";
-import MainLayout from "./components/Layout/MainLayout";
 import CartPages from "./pages/CartPages";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
-import { ToastContainer } from "react-toastify";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+
+const AdminDashboardPage = lazy(() => import("./pages/AdminDashboardPage"));
+
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -69,7 +74,9 @@ const App = () => {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <Suspense fallback={<span>Sayfa Yükleniyor...</span>}>
+        <RouterProvider router={router} />
+      </Suspense>
       <ToastContainer />
     </>
   );
