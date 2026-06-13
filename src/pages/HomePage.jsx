@@ -11,7 +11,7 @@ import {
 import Counter from "../components/Counter";
 import MyButton from "../components/PerformanceOptimization/MyButton";
 import MyElement from "../components/PerformanceOptimization/MyElement";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const categories = [
   {
@@ -81,9 +81,9 @@ const benefits = [
 const HomePage = () => {
   const [toggleParagraph, setToggleParagraph] = useState(false);
 
-  const handleToggleParagraph = () => {
+  const handleToggleParagraph = useCallback(() => {
     setToggleParagraph((prev) => !prev);
-  };
+  }, []);
   return (
     <div className="-mx-4 -my-4 bg-slate-100">
       <MyElement show={false} />
