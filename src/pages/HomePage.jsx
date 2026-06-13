@@ -9,7 +9,9 @@ import {
   Truck,
 } from "lucide-react";
 import Counter from "../components/Counter";
-import TextInputFocusButton from "../components/TextInputFocusButton";
+import MyButton from "../components/PerformanceOptimization/MyButton";
+import MyElement from "../components/PerformanceOptimization/MyElement";
+import { useState } from "react";
 
 const categories = [
   {
@@ -77,9 +79,16 @@ const benefits = [
 ];
 
 const HomePage = () => {
+  const [toggleParagraph, setToggleParagraph] = useState(false);
+
+  const handleToggleParagraph = () => {
+    setToggleParagraph((prev) => !prev);
+  };
   return (
     <div className="-mx-4 -my-4 bg-slate-100">
-      <TextInputFocusButton />
+      <MyElement show={false} />
+      <MyButton onClick={handleToggleParagraph}>Tıkla</MyButton>
+
       <section className="bg-slate-950 text-white">
         <div className="mx-auto grid min-h-[520px] w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
           <div className="flex flex-col justify-center">
