@@ -11,7 +11,8 @@ import {
 import Counter from "../components/Counter";
 import MyButton from "../components/PerformanceOptimization/MyButton";
 import MyElement from "../components/PerformanceOptimization/MyElement";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import MyList from "../components/PerformanceOptimization/MyList";
 
 const categories = [
   {
@@ -80,14 +81,24 @@ const benefits = [
 
 const HomePage = () => {
   const [toggleParagraph, setToggleParagraph] = useState(false);
+  const [title, setTitle] = useState("Title State");
 
   const handleToggleParagraph = useCallback(() => {
     setToggleParagraph((prev) => !prev);
   }, []);
+
+  const handleTitleChange = useCallback(() => {
+    setTitle("Title Değişti");
+  }, []);
+
+  const listItems = useMemo(() => [1, 2, 3, 4, 5], []);
+
   return (
     <div className="-mx-4 -my-4 bg-slate-100">
       <MyElement show={false} />
-      <MyButton onClick={handleToggleParagraph}>Tıkla</MyButton>
+      <MyList items={listItems} />
+      <p>{title}</p>
+      <MyButton onClick={handleTitleChange}>Tıkla</MyButton>
 
       <section className="bg-slate-950 text-white">
         <div className="mx-auto grid min-h-[520px] w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
